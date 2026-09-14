@@ -29,16 +29,16 @@ Check it out for yourself:
 
 Check out the appearance and contents of this document.
 Thoughts?
-It has titles.
+It has titles, paragraphs, and images
 
 In the toolbar at the top of this document, **Render** the .qmd file into a .html file.
 Where is this file stored?
 ICA at portfolio
 
 Thoughts about its appearance / contents?
-Not colorful but clean
+Not colorful but clean and organized
 Can you edit it?
-No, I cannot change the color
+No, I cannot change the color. but I think I should do it in the .qmd file. .html is for output
 
 Toggling between the .qmd and .html files, explain the purpose of the following features in the .qmd file:
 
@@ -85,7 +85,7 @@ seq()
 - Put the `seq()` code in the chunk.
 - Press the green arrow in the top right of the chunk. What happens in the qmd?
 - Render. What appears in the html: R code, output, or both?
-If I only put `seq()`, it shows error. I need to only put seq() in the chunk that works.
+I need to only put seq() in the chunk that works. Both R code and output are in the .html
 
 ## Exercise 4: Practice
 
