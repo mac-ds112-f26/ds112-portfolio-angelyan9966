@@ -90,11 +90,13 @@ format:
     theme: # bootswatch themes--other options https://bootswatch.com/
       light: flatly
       dark: darkly
+    css:
+    - style/custom.css
+    - style_Portfolio_index.css
     search: true
     toc: true
     toc-depth: 3
     link-external-newwindow: true
-    css: style/custom.css
     fontsize: 1em
     smooth-scroll: true
     code-overflow: scroll
