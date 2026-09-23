@@ -1,9 +1,94 @@
 ---
 title: "Welcome"
+page-layout: full
+toc: false
 ---
 
-
 Welcome to my online portfolio for COMP/STAT112 course taken at [Macalester College](https://www.macalester.edu/).  Please, use the side bar on the left for navigation.
+
+::: {.hero}
+# Angel Yan
+
+**Media and Cultural Studies | International Studies**
+
+::: {.puzzle-intro}
+
+## Piece It Together
+
+<details>
+<summary>View original photograph</summary>
+
+![Photograph by Angel Yan](assets/starry-night-lego.png){width=650}
+
+</details>
+
+```{r}
+#| echo: false
+#| layout-ncol: 3
+
+pieces <- c(
+  "assets/puzzle/piece1.png",
+  "assets/puzzle/piece2.png",
+  "assets/puzzle/piece3.png",
+  "assets/puzzle/piece4.png",
+  "assets/puzzle/piece5.png",
+  "assets/puzzle/piece6.png",
+  "assets/puzzle/piece7.png",
+  "assets/puzzle/piece8.png",
+  "assets/puzzle/piece9.png"
+)
+
+shuffled_pieces <- sample(pieces)
+
+knitr::include_graphics(shuffled_pieces)
+```
+:::
+
+::: {.about-section}
+## About Me
+Hi, this is Angel Yan!
+Outside of class, you’ll probably find me playing tennis or badminton, building LEGO Technic sets, or planning my next trip. The puzzle 👆is one of my Lego collections!
+
+```{R}
+library(ggplot2)
+hobbies <- data.frame(
+  hobby = c(
+    "Travel",
+    "Badminton",
+    "Tennis",
+    "LEGO",
+    "Photography"
+  ),
+  percent = c(20, 10, 30, 35, 5)
+)
+
+ggplot(hobbies, aes(x = hobby, y = percent)) +
+  geom_col() +
+  geom_col(color = "white", fill = "#FFB6C0")
+  labs(
+    title = "Where My Free Time Goes",
+    subtitle = "An unofficial estimate",
+    y = "Percent of free time"
+  ) +
+  theme_minimal()
+```
+
+:::
+
+## This is my Data Science 112-01 portfolio
+::: {.portfolio-card}
+
+## Data Science 112-01 Class Work Here 👇
+
+### Learning & Experiments
+
+[In-Class Activities](https://github.com/mac-ds112-f26/ds112-portfolio-angelyan9966/tree/main/ica)
+
+[Homework](https://github.com/mac-ds112-f26/ds112-hw-angelyan9966)
+
+[TidyTuesday](https://github.com/mac-ds112-f26/ds112-portfolio-angelyan9966/tree/main/tt)
+
+:::
 
 ```{r}
 #| output: false
