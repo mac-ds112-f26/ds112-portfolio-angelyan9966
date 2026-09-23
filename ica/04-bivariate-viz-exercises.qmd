@@ -403,25 +403,28 @@ weather <- read.csv("https://mac-stat.github.io/data/weather_3_locations.csv")
 Construct plots that address the research questions in each chunk. You might make multiple plots--there are many ways to do things!. However, don't just throw spaghetti at the wall.
 
 Reflect before doing anything. What types of variables are these? How might you plot just 1 of the variables, and then tweak the plot to incorporate the other?
+- categorical, bar chart. if one more than add position = "fill"
 
 ```{r}
 # How do 3pm temperatures (temp3pm) differ by location?
-
-
-
+ggplot(weather, aes(x = temp3pm, fill = location)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_manual(values = c("blue", "purple", "red")) +
+  facet_wrap(~location)
 ```
 
 ```{r}
 # How might we predict the 3pm temperature (temp3pm) by the 9am temperature (temp9am)?
-
-
-
+ggplot(weather, aes(x = temp3pm, y = temp9am))+
+  geom_point(color = "pink")+
+  geom_smooth(method = "lm")
 ```
 
 ```{r}
 # How do the number of rainy days (raintoday) differ by location?
-
-
+ggplot(weather, aes(x = location, fill = raintoday)) +
+  geom_bar(position = "fill") +
+  facet_wrap(~location, scales = "free_x")
 ```
 
 
@@ -430,6 +433,7 @@ Reflect before doing anything. What types of variables are these? How might you 
 The above visualizations are foundational and important. But they're not the only way to visualize the variables in our dataset.
 
 Suppose we wanted to better understand how the 2020 Republican support varied from county to county within each **state**. Since `repub_pct_20` is quantitative and `state_abbr` is categorical, we *could* make a density plot of `repub_pct_20` for each state. Reflect on why this is bad.
+- there are so many states in one plot, it's hard to see and distinguish the color, which led to hard to compare.
 
 ```{r}
 ggplot(elections, aes(x = repub_pct_20, fill = state_abbr)) + 
@@ -443,7 +447,7 @@ A facet wrap would also be bad!
 #| fig-height: 8
 
 ggplot(elections, aes(x = repub_pct_20)) + 
-  geom_density(alpha = 0.5) + 
+  geom_density(alpha = 0.5, color = "pink", fill = "green") + 
   facet_wrap(~ state_abbr)
 ```
 
@@ -457,9 +461,9 @@ When we want to compare the distribution of some quantitative outcome among *man
 library(ggridges)
 
 # Make our first joy plot
-# THINK: What DON'T you like about this?
+# THINK: What DON'T you like about this? There are so many states, hard to compare
 ggplot(elections, aes(x = repub_pct_20, y = state_abbr)) + 
-  geom_density_ridges()
+  geom_density_ridges(color = "orange", fill = "blue")
 ```
 
 ```{r}
@@ -468,6 +472,7 @@ ggplot(elections, aes(x = repub_pct_20, y = state_abbr)) +
 
 # Let's put the states in order by Republican support, not alphabet
 # How do you think fct_reorder works? We'll learn about this later in the semester.
+library(forcats)
 ggplot(elections, aes(x = repub_pct_20, y = fct_reorder(state_abbr, repub_pct_20))) + 
   geom_density_ridges(alpha = 0.5)
 ```
@@ -478,15 +483,16 @@ ggplot(elections, aes(x = repub_pct_20, y = fct_reorder(state_abbr, repub_pct_20
 
 # YOUR TURN: color/fill the ridges according to a state's historical voting patterns 
 # and add meaningful axis labels
-
+ggplot(elections, aes(x = repub_pct_20, y = fct_reorder(state_abbr, repub_pct_20))) + 
+  geom_density_ridges(alpha = 0.5, color = "yellow", fill = "orange")
 
 ```
 
 **Follow-up questions**
 
--   Which states tend to have the most variability in outcomes from county to county? The least?
--   What other interesting patterns do you notice?
--   Does this plot prompt any other questions?
+-   Which states tend to have the most variability in outcomes from county to county? The least? most:NE, least:DC
+-   What other interesting patterns do you notice? some peaks are strong.
+-   Does this plot prompt any other questions? how large difference between the states?
 
 
 ## Exercise 15: State Total Outcomes (Optional)
@@ -514,6 +520,8 @@ BUT this isn't the easiest way to communicate or identify the changes from 1 yea
 # Start by creating a "scatterplot" of state_abbr (y-axis) by 2020 Republican support on the x-axis
 # Color the points red
 # Scroll to solutions below when you're ready
+ggplot(elections_by_state, aes(y = state_abbr, x = repub_pct_20)) + 
+  geom_point(color = "red")
 
 
 ```
