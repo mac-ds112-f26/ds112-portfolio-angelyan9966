@@ -225,7 +225,8 @@ In the final two plots, the states (rows) are rearranged by similarity with resp
 
 Putting this all together, what insight do you gain about the education trends across U.S. states? Which states are similar? In what ways are they similar? Are there any outliers with respect to 1 or more of the education metrics?
 
--
+- the heatmap shows that states can have very different education patterns. Some states are grouped together because they have similar values across several varibales. Like NY, NJ are clustered and have relatively high expend and salaries. Iowa, Kansas, and Nebraska are tend to have lower expend and salaries and higher verbal, SAT and math values. 
+- Also have some outliers. CA and Utah have high ratios.
 
 ### ✏️ Build Star Plot
 
@@ -234,7 +235,9 @@ Like heat maps, star plots indicate the relative scale of each variable for each
 Construct and check out the star plot below. Note that each state has a "pie", with each segment corresponding to a different variable. The larger a segment, the larger that variable's value is in that state. For example:
 
 -   Check out Minnesota. How does Minnesota's education metrics compare to those in other states? What metrics are relatively high? Relatively low?
+MN has relatively high SAT, verbal and math values. But expend and salary are lower compared to other states. MN looks similar to Wisconsin because they have similar SAT patterns. 
 -   What states appear to be similar? Do these observations agree with those that you gained from the heat map?
+NY, NJ, and Connecticut look different because they have relatively high expend and salary. These are similar to the heatmap, but I think star plot makes the clusters easier to see.
 
 ```{r}
 #| fig-width: 10
@@ -252,6 +255,7 @@ stars(plot_data,
 ### ✏️ Map Star Plots
 
 Finally, let's plot the state stars by *geographic* location! What new insight do you gain here?!
+The data in the plot is located by the US map. But there are too many states are located in the east coast, which makes the some data hard to see. but it's interesting that the data can organized like this.
 
 ```{r}
 #| fig-width: 10
