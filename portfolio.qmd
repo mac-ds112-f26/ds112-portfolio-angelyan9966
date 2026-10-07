@@ -1,0 +1,85 @@
+---
+title: "Data Science Portfolio"
+page-layout: full
+toc: false
+---
+
+# COMP/STAT112-01
+
+Welcome to my Data Science portfolio!
+
+This portfolio brings together the work I completed throughout COMP/STAT112 at Macalester College.
+I started with basic R code and for now gradually moved from one-variable graphs to multivariate and spatial visualization.
+I will keep update my learning progress! Stay with me
+
+::: {.portfolio-card}
+
+## In-Class Activities
+
+My in-class activities show how my visualization skills developed throughout the semester.
+
+I started with Quarto and basic R, then worked through:
+
+- Univariate visualization
+- Bivariate visualization
+- Multivariate visualization
+- Spatial visualization
+
+[Explore my In-Class Activities →](ica/ica-portfolio.qmd)
+
+:::
+
+
+::: {.portfolio-card}
+
+## TidyTuesday
+
+For my TidyTuesday project, I explored **urban green space around the world** using data from UN-Habitat.
+
+I looked at how green space is distributed across cities, how it differs across regions, and whether cities with more green area also have more green space per person.
+
+[Explore my TidyTuesday project →](tt/tt-README.qmd)
+
+:::
+
+
+::: {.portfolio-card}
+
+## Pre-Class Learning
+
+Before class, I created notes and mind maps to organize important concepts, functions, and visualization methods.
+
+These became a visual record of what I learned about R, `ggplot2`, data visualization, packages, and spatial data.
+
+[Explore my Pre-Class Learning →](pcl/pcl.qmd)
+
+:::
+
+
+::: {.portfolio-card}
+
+## Personal Visualization Journey
+
+This section reflects on how my understanding of data visualization changed throughout the course.
+
+I became more interested not only in making a graph work, but also in thinking about **why a visualization works, what it communicates, and how design changes the way people understand data**.
+
+[Explore my Visualization Journey →](pvj/pvj-01.qmd)
+
+:::
+
+
+## What I Learned
+
+Throughout the semester, I became more comfortable with:
+
+- R and RStudio
+- Quarto
+- library and install packages
+- `ggplot2`
+- Choosing visualizations based on variable type
+- Histograms, density plots, boxplots, and scatterplots
+- Color, shape, faceting, and other visual encodings
+- Interactive and static maps
+- Thinking  about effective visualization
+- The most interesting part is trying to work on the website and the styles like .css

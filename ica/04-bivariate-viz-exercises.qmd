@@ -47,6 +47,7 @@ How many, or roughly what percent, of the 3000+ counties did the Republican cand
 -   Take a guess.
 -   Then make a plot of the `winner` variable.
 ```{R}
+library(ggplot2)
 ggplot(elections, aes(x = winner_20)) +
   geom_bar() +
   labs(x = "party", y = "number of votes")
