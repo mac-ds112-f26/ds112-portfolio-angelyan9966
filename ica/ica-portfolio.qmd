@@ -7,15 +7,18 @@ description: my in class works here!
 
 This section contains in-class activities.
 
-:::{.ica-hero}
+::: {.ica-hero}
 
-### My learning progress
+### My Learning Progress
 
-This is for in class works to record what I learned in Stats 112. **From visualization to univariate, bivariate, multivariate and spatial visualization**
+This is where I keep track of what I have learned in COMP/STAT112.
+
+I started with Quarto and basic R, then moved through **univariate, bivariate, multivariate, and spatial visualization**. Recently, I have also been learning how to make visualizations more effective and how to wrangle data before working with it.
 
 :::
 
- ## My Progress
+
+## My Progress
 
 :::: {.ica-progress}
 
@@ -25,7 +28,7 @@ This is for in class works to record what I learned in Stats 112. **From visuali
 
 **Quarto + R**
 
-Getting used to writing code and rendering a document.
+Getting used to code and Quarto.
 
 :::
 
@@ -69,10 +72,30 @@ Putting data on maps.
 
 :::
 
+::: {.ica-progress-card .ica-teal}
+
+### 07
+
+**Effective Viz**
+
+Making graphs easier to understand.
+
+:::
+
+::: {.ica-progress-card .ica-pink}
+
+### 08
+
+**Data Wrangling**
+
+Working with data before plotting.
+
+:::
+
 ::::
 
 
-## Quarto + R Basics
+## 01. Quarto + R Basics
 
 ::: {.ica-section .ica-pink}
 
@@ -82,7 +105,7 @@ This was one of my first activities using Quarto.
 
 I practiced basic Markdown, R chunks, functions like `seq()` and `rep()`, saving objects, and using comments in code.
 
-At this point I was mostly trying to understand how the `.qmd` file, R code, output, and the final HTML page all connect together.
+At this point, I was mostly trying to understand how the `.qmd` file, R code, output, and the final HTML page all connect together.
 
 [Open this activity →](ICA_Sep14_Angel.qmd)
 
@@ -118,11 +141,11 @@ I also started paying more attention to things like `fill`, `color`, labels, the
 
 ### Adding a second variable
 
-This activity made visualization feel a lot more interesting because I was no longer just describing one variable.
+This activity made visualization more interesting because I was no longer only describing one variable.
 
 I used scatterplots, boxplots, violin plots, density plots, facets, and different versions of bar charts to compare relationships between variables.
 
-This was also where I started thinking more about which graph actually makes a comparison easier to understand.
+This was also where I started thinking more about which type of graph actually makes a comparison easier to understand.
 
 ::: {.ica-tags}
 
@@ -145,7 +168,7 @@ Here I started working with more than two variables at the same time.
 
 I used color, groups, trend lines, heat maps, and star plots to add more information to a visualization.
 
-This activity also showed me that adding more variables does not automatically make a graph better. It can also make it harder to read.
+This activity also showed me that adding more variables does not automatically make a graph better. Sometimes it can also make the graph harder to read.
 
 ::: {.ica-tags}
 
@@ -166,7 +189,7 @@ This activity also showed me that adding more variables does not automatically m
 
 Spatial visualization was probably one of the biggest changes from the earlier activities.
 
-Instead of only thinking about values and relationships, I also had to think about where the data are located.
+Instead of only thinking about values and relationships, I also had to think about **where** the data are located.
 
 I practiced interactive maps with `leaflet`, static maps with `ggplot2`, point maps, geographic boundaries, and choropleth maps.
 
@@ -177,3 +200,51 @@ I practiced interactive maps with `leaflet`, static maps with `ggplot2`, point m
 :::
 
 [Open this activity →](06-spatial-viz.qmd)
+
+:::
+
+
+## 07. Effective Visualization
+
+::: {.ica-section .ica-teal}
+
+### Making a graph work is not the same as making it good
+
+This activity made me think more about what happens after I already know how to make a graph.
+
+I practiced adding better labels and captions, writing alt text, checking color accessibility, and thinking about whether a visualization could be misleading.
+
+I also started thinking more from the reader's perspective: what should stand out, what information needs explanation, and what can be removed if it is distracting.
+
+::: {.ica-tags}
+
+`labels`   `captions`   `alt text`   `accessibility`   `ethics`   `design`
+
+:::
+
+[Open this activity →](07-effective-viz.qmd)
+
+:::
+
+
+## 08. Data Wrangling
+
+::: {.ica-section .ica-pink}
+
+### Changing the data before making the graph
+
+This activity introduced a different part of data science: working with the data itself before visualizing it.
+
+I practiced choosing columns, keeping certain rows, sorting data, creating or changing variables, and calculating summaries.
+
+I also learned how `group_by()` can be combined with `summarize()` to compare different groups in a dataset.
+
+::: {.ica-tags}
+
+`select()`   `filter()`   `arrange()`   `mutate()`   `summarize()`   `group_by()`
+
+:::
+
+[Open this activity →](08-data-wrangling.qmd)
+
+:::

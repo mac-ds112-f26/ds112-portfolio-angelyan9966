@@ -24,6 +24,8 @@ I started with Quarto and basic R, then worked through:
 - Bivariate visualization
 - Multivariate visualization
 - Spatial visualization
+- Effective visualization
+- Data wrangling
 
 [Explore my In-Class Activities →](ica/ica-portfolio.qmd)
 
