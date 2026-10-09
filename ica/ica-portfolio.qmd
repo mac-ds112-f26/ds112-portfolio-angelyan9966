@@ -107,7 +107,7 @@ I practiced basic Markdown, R chunks, functions like `seq()` and `rep()`, saving
 
 At this point, I was mostly trying to understand how the `.qmd` file, R code, output, and the final HTML page all connect together.
 
-[Open this activity →](ICA_Sep14_Angel.qmd)
+[Open this activity](ICA_Sep14_Angel.qmd)
 
 :::
 
@@ -130,7 +130,7 @@ I also started paying more attention to things like `fill`, `color`, labels, the
 
 :::
 
-[Open this activity →](03-univariate-viz-exercises.qmd)
+[Open this activity](03-univariate-viz-exercises.qmd)
 
 :::
 
@@ -153,7 +153,7 @@ This was also where I started thinking more about which type of graph actually m
 
 :::
 
-[Open this activity →](04-bivariate-viz-exercises.qmd)
+[Open this activity](04-bivariate-viz-exercises.qmd)
 
 :::
 
@@ -176,7 +176,7 @@ This activity also showed me that adding more variables does not automatically m
 
 :::
 
-[Open this activity →](05-multivariate-viz.qmd)
+[Open this activity](05-multivariate-viz.qmd)
 
 :::
 
@@ -199,7 +199,7 @@ I practiced interactive maps with `leaflet`, static maps with `ggplot2`, point m
 
 :::
 
-[Open this activity →](06-spatial-viz.qmd)
+[Open this activity](06-spatial-viz.qmd)
 
 :::
 
@@ -222,7 +222,7 @@ I also started thinking more from the reader's perspective: what should stand ou
 
 :::
 
-[Open this activity →](07-effective-viz.qmd)
+[Open this activity](07-effective-viz.qmd)
 
 :::
 
@@ -245,6 +245,6 @@ I also learned how `group_by()` can be combined with `summarize()` to compare di
 
 :::
 
-[Open this activity →](08-data-wrangling.qmd)
+[Open this activity](08-data-wrangling.qmd)
 
 :::
