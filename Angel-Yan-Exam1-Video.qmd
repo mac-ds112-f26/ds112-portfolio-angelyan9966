@@ -1,0 +1,41 @@
+---
+title: "Angel-Yan_Exam 1"
+---
+
+---
+  title: "Angel-Yan-Exam1"
+format: html
+---
+  
+```{r}
+library(tidyverse)
+```
+
+```{r}
+penguins <- read.csv("https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv")
+```
+
+# Graph A
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Quantitative + Quantitative", x = "Flipper Length (mm)", y = "Body Mass (g)") +
+  theme_minimal()
+```
+# Graph B
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_point(color = "steelblue", size = 2) +
+  labs(title = "Categorical + Quantitative", x = "Species", y = "Body Mass (g)") +
+  theme_minimal()
+```
+
+#Graph C
+```{r}
+ggplot(penguins, aes(x = species, y = sex)) +
+  geom_point(color = "steelblue", size = 2) +
+  labs(title = "Categorical + Categorical", x = "Species", y = "Sex") +
+  theme_minimal()
+```
+
