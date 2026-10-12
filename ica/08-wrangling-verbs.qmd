@@ -318,20 +318,20 @@ Let's talk about the last 2 verbs. `summarize()` (or equivalently `summarise()`)
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median(repub_pct_20))
+elections_small |> 
+  summarize(median(repub_pct_20))
 ```
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median_repub = median(repub_pct_20))
+elections_small |> 
+  summarize(median_repub = median(repub_pct_20))
 ```
 
 ```{r}
 # What does this do?
-# elections_small |> 
-#   summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20))
+elections_small |> 
+  summarize(median_repub = median(repub_pct_20), total_votes = sum(total_votes_20))
 ```
 
 
@@ -464,7 +464,9 @@ You can find a codebook [here](https://github.com/rfordatascience/tidytuesday/tr
 In what years did Brazil win the World Cup?
 
 ```{r}
-
+world_cup |>
+  select(winner, year) |>
+  filter(winner =="Brazil")
 ```
 
 
@@ -473,7 +475,9 @@ In what years did Brazil win the World Cup?
 What were the 6 World Cups with the highest attendance?
 
 ```{r}
-
+world_cup |>
+  arrange(desc(attendance)) |>
+  head()
 ```
 
 
@@ -482,7 +486,10 @@ What were the 6 World Cups with the highest attendance?
 Construct a univariate plot of `goals_scored` (no wrangling necessary). This provides a visual summary of how the number of `goals_scored` varies from World Cup to World Cup.
 
 ```{r}
-
+library(ggplot2)
+ggplot(world_cup, aes(x = year, y = goals_scored)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm")
 ```
 
 
@@ -491,7 +498,18 @@ Construct a univariate plot of `goals_scored` (no wrangling necessary). This pro
 Let's follow up the plot with some more precise numerical summaries. Calculate the min, median, and max number of `goals_scored` across all World Cups. NOTE: Visually compare these numerical summaries to what you observed in the plot.
 
 ```{r}
+#summarize
+world_cup |>
+  summarize(
+    min_goals = min(goals_scored),
+    median_goals = median(goals_scored),
+    max_goals = max(goals_scored)
+  )
 
+#plot of goals over time
+ggplot(world_cup, aes(x = year, y = goals_scored)) +
+  geom_point() +
+  geom_line()
 ```
 
 
@@ -500,7 +518,11 @@ Let's follow up the plot with some more precise numerical summaries. Calculate t
 Construct a bivariate plot of how the number of `goals_scored` in the World Cup has changed over the years. No wrangling necessary.
 
 ```{r}
-
+world_cup |>
+  mutate(goals_per_game = goals_scored / games) |>
+  ggplot(aes(x = year, y = goals_per_game)) +
+  geom_point() +
+  geom_line()
 ```
 
 
@@ -509,7 +531,11 @@ Construct a bivariate plot of how the number of `goals_scored` in the World Cup 
 Our above summaries might be a bit misleading. The number of games played at the World Cup varies. Construct a bivariate plot of how the typical number of goals per game has changed over the years.
 
 ```{r}
-
+world_cup |>
+  mutate(goals_per_game = goals_scored / games) |>
+  ggplot(aes(x = year, y = goals_per_game)) +
+  geom_point() +
+  geom_line()
 ```
 
 
