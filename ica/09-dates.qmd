@@ -347,7 +347,13 @@ penguins |>
 Calculate the total number of births in each month and year, eg, Jan 1969, Feb 1969, .... Label month by names not numbers, eg, Jan not 1. Then, plot the births by month and comment on what you learn.
 
 ```{r}
-
+daily_births |>
+  mutate(year = year(date), month = month(date, label = TRUE)) |>
+  group_by(year, month) |>
+  summarize(total_births = sum(births)) |>
+  ggplot(aes(x = month, y = total_births, color = factor(year))) +
+  geom_line(aes(group = year)) +
+  geom_point()
 ```
 
 ### ✏️ Plot Weekly Births by State
