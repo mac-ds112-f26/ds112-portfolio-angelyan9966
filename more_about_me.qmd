@@ -1,0 +1,118 @@
+---
+title: "More About Me"
+page-layout: full
+toc: false
+---
+
+::: {.hero}
+
+# Angel Yan
+
+**Media and Cultural Studies | International Studies**
+
+Hi! Welcome to my portfolio. This page is a little more about me outside
+of my Data Science coursework — the things I enjoy, create, and spend my
+time doing.
+
+:::
+
+
+::: {.puzzle-intro}
+
+## Piece It Together
+
+<details>
+
+<summary>View original photograph</summary>
+
+![Photograph by Angel Yan](../assets/puzzle/starry-night-lego.png){width=650}
+
+</details>
+
+
+```{r}
+#| echo: false
+#| layout-ncol: 3
+
+pieces <- c(
+  "assets/puzzle/piece1.png",
+  "assets/puzzle/piece2.png",
+  "assets/puzzle/piece3.png",
+  "assets/puzzle/piece4.png",
+  "assets/puzzle/piece5.png",
+  "assets/puzzle/piece6.png",
+  "assets/puzzle/piece7.png",
+  "assets/puzzle/piece8.png",
+  "assets/puzzle/piece9.png"
+)
+
+shuffled_pieces <- sample(pieces)
+
+knitr::include_graphics(shuffled_pieces)
+```
+
+:::
+
+
+::: {.about-section}
+
+## About Me
+
+Hi, this is Angel Yan!
+
+Outside of class, you’ll probably find me playing tennis or badminton,
+building LEGO Technic sets, taking photos, or planning my next trip.
+
+I enjoy exploring different ways of telling stories through media,
+photography, travel, and data visualization. I also like trying new things
+and finding connections between my academic interests and the things I do
+for fun.
+
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+
+library(ggplot2)
+
+hobbies <- data.frame(
+  hobby = c(
+    "Travel",
+    "Badminton",
+    "Tennis",
+    "LEGO",
+    "Photography"
+  ),
+  percent = c(
+    20,
+    10,
+    30,
+    35,
+    5
+  )
+)
+
+ggplot(
+  hobbies,
+  aes(
+    x = hobby,
+    y = percent
+  )
+) +
+  geom_col(
+    color = "white",
+    fill = "#FFB6C0"
+  ) +
+  labs(
+    title = "Where My Free Time Goes",
+    subtitle = "An unofficial estimate",
+    x = NULL,
+    y = "Percent of free time"
+  ) +
+  theme_minimal()
+```
+
+:::
+
+

@@ -1,0 +1,170 @@
+---
+title: "HW3-P2 TidyTuesday"
+author: "Angel Yan"
+format: 
+  html: 
+    embed-resources: true
+---
+
+::: {.callout-important title="Install Missing Packages"}
+Make sure every package used in this assignment is installed on your machine.  If not, install it by either:
+
+a. RStudio --> Console --> run `install.packages(package name)`
+b. RStudio --> Packages pane --> Install --> type `package name` --> click Install.
+:::
+
+```{r}
+# Load required libraries
+library(tidyverse)
+```
+
+## Introduction
+
+Tidy Tuesday is a weekly data project put on by some folks from the R Data Science community. Each week, a different data set is posted and people around the world wrangle and visualize that data. According to the organizers, "The intent of Tidy Tuesday is to provide a safe and supportive forum for individuals to practice their wrangling and data visualization skills independent of drawing conclusions."
+
+
+The goals of this TidyTuesday are:
+
+1.  Practice generating questions. You have to decide what to ask and how to answer it with a graphic.
+2.  Practice identifying what viz and (eventually) wrangling tools are useful for addressing your questions.
+4.  Get a sense of the broader data science community. Check out what people share out on [X/Twitter #TidyTuesday](https://x.com/search?q=%23TidyTuesday). Maybe even share your own #TidyTuesday work on social media. Recent Mac alum [Erin Franke (X/Twitter)](https://x.com/efranke7282) has an inspiring account! Scrolling through, you'll notice the trajectory of her work, starting from COMP/STAT 112 to today. Very cool.
+
+
+## Exercise 1
+
+Go to [TidyTuesday](https://github.com/rfordatascience/tidytuesday). Pick a dataset that was posted in the **last 4 weeks**. Here, include:
+
+- A short (\~2 sentence) written description of your data. This should include: 
+  - the original data source, ie, where did TidyTuesday get the data from?
+  - units of observation, ie, what are you analyzing?, and 
+  - the data size, ie, how many data points do you have? how many variables are measured on each data point?.
+
+::: {.callout-note title="Answer"}
+
+I chose the Sept 22, 2026 TidyTuesday dataset on green areas in cities and urban areas around the world. The original data come from the  UN Habitat Urban Indicators Dataset. The observation represents a city or urban area in a particular year. the measurements including the % of the city covereed by green area and green area/capita. and it contain 5600 observations and 10 variables.
+
+:::
+
+```{r}
+urban <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-09-22/urban.csv")
+```
+
+
+- Code to import and examine the basic properties of your chosen dataset. This code must support the facts you cited in your short written description.
+
+```{r}
+head (urban)
+
+dim(urban)
+
+glimpse(urban)
+```
+
+
+## Exercise 2
+
+
+In the 3 sections below (Viz 1, 2, 3), construct 3 separate graphs that tell a *connected* story about the data you chose.  
+
+**Before each viz:**
+
+-   write a simple but specific research question you're trying to address with the viz.
+-   write a 2-4 sentence summary of what you learn from the viz. This should connect back to your research question!
+
+**After each viz:**
+
+-   Comment on at least 2 effective aspects of the viz (consider the effective visualization principles).
+-   Comment on at least 2 aspects of the visualization that could be improved. Perhaps these are aspects that you don't know how to implement yet but wish you could update it.
+
+**Make sure each viz:**
+
+-   has meaningful axis labels and legend titles
+-   has a figure caption (fig.cap)
+-   uses alt text (fig.alt)
+-   uses a more color-blind friendly color palette
+
+
+**Tips:**
+
+-   Start with some questions in mind of what you want to learn.
+-   Start with a simple viz (viz 1), and build this up into something multivariate (viz 3).
+-   Reflect on each viz -- what new questions do you have after checking out the viz? Let these questions guide your next viz.
+
+
+### Viz 1
+
+::: {.callout-note title="Research Question"}
+
+How is the percentage of green area distributed across cities around the world in 2025?
+
+:::
+
+```{r}
+urban_2025 <- urban |>
+  filter(year == 2025)
+
+ggplot(urban_2025, aes(x= averageShareOfGreenAreaInCityUrbanAreaPct))+
+  geom_histogram(fill = "darkgreen", color = "white")+
+  labs(title = "Distribution of Green Area Across Cities in 2025", 
+       x = "Average share of green area (%)", 
+       y = "Number of cities"
+       )
+```
+
+::: {.callout-note title="Summary"}
+
+In 2025, most cities has relatively low % of share of green area, many cities are roughly has 3%-10%. The distribution is right-skewed. only small number of cities have very high green area % above 20%. highly green cities are less common than cities with lower levels of green space.
+
+:::
+
+### Viz 2
+
+::: {.callout-note title="Research Question"}
+
+Do cities in different world regions have different amounts of green area?
+
+:::
+
+```{r}
+ggplot(urban_2025, aes(x = averageShareOfGreenAreaInCityUrbanAreaPct, y = sdgRegion)) +
+  geom_boxplot(fill = "darkblue") +
+  labs(title = "Green Area Across World Regions", x = "% of green area", y = "region") +
+  theme()
+```
+
+::: {.callout-note title="Summary"}
+
+cities in different world regions have different amounts of green area in 2025. Eastern Asian and Southeastern Asian have relatively higher percentages of green area. Western Asia and Northern Africa tends to have lower % Some regions also have a wide range of values, which means in the same region the value can be very different.
+
+:::
+
+### Viz 3
+
+::: {.callout-note title="Research Question"}
+
+Do cities with more green area also have more green space per person?
+
+:::
+
+```{r}
+ggplot(urban_2025, aes(x = averageShareOfGreenAreaInCityUrbanAreaPct, y = greenAreaPerCapitaM2)) +
+  geom_point(color = "darkblue", alpha = 0.5) +
+  labs(title = "Does More Green Area Mean More Green Space per Person?",
+       x = "% of Green Area",
+       y = "Green area per capita"
+       )
+```
+
+::: {.callout-note title="Summary"}
+
+Cities with a higher % of green area generally also have more green area per person. The scatterplot shows a positive relationship, but still has some outliers.
+
+:::
+
+
+
+## Finalize Work
+
+Congratulations 🎉 You're done with Part 2 of Homework 3. Make sure Part 1 is also complete.
+
+To submit: click **Render**, open the generated HTML file to check that it looks right, then use **GitHub Desktop** to commit and push *both* this `.qmd` file and its HTML file. Remember: if it is not pushed, it is not submitted.  See [Submission Procedure on the HW Instructions page](https://hash-mac.github.io/ds112site-f26/hws/hw-instructions.html#submission-procedure) for the detailed steps.
