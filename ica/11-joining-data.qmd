@@ -301,8 +301,11 @@ grades |>
 Below is a dataset with all courses in department E:
 
 ```{r}
+dept_E <- courses |>
+  filter(dept == "E")
+
 grades |>
-  semi_join(courses, dept_E)
+  semi_join(dept_E, by = "sessionID")
 ```
 
 What students enrolled in classes in department E? (We just want info on the students, not the classes.)
@@ -370,10 +373,7 @@ grades |>
 What fraction of grades are below B+?
 
 ```{r}
-grades |>
-  left_join(gpa_conversion) |>
-  mutate(gpa_conversion < B+ = (gp < 3.3)) |>
-  summarize(mean(below_b_plus, na.rm = TRUE))
+
 ```
 
 ### ✏️ Compute Instructor GPA
