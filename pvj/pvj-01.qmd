@@ -1,5 +1,134 @@
 ---
 title: "Personal Visualization Journey"
 ---
+Prepare and load the resting heart rate data for my PVJ. I exported the data from my phone, and it’s only available as an xml. file. Online tools cannot successfully convert xml. to csv.
+```{r}
+library(tidyverse)
+library(xml2)
 
-Add content here
+# Path to apple health xml
+file_path <- "pvj/apple_health_export/export.xml"
+```
+
+# AI Assistance to translate xml file into csv:
+
+```{r}
+file_path <- path.expand(
+  "~/Documents/GitHub/ds112-portfolio-angelyan9966/pvj/apple_health_export/export.xml"
+)
+
+# Open the XML file for reading
+con <- file(file_path, open = "r")
+
+rhr_lines <- character()
+
+repeat {
+  lines <- readLines(con, n = 10000, warn = FALSE)
+
+  if (length(lines) == 0) break
+
+  matches <- grep(
+    'type="HKQuantityTypeIdentifierRestingHeartRate"',
+    lines,
+    value = TRUE,
+    fixed = TRUE
+  )
+
+  rhr_lines <- c(rhr_lines, matches)
+}
+
+close(con)
+
+# Check the number of records
+length(rhr_lines)
+
+# Extract attributes from the XML records
+extract_attr <- function(lines, attribute) {
+  pattern <- paste0('.* ', attribute, '="([^"]*)".*')
+
+  ifelse(
+    grepl(paste0(' ', attribute, '="'), lines),
+    sub(pattern, "\\1", lines),
+    NA_character_
+  )
+}
+
+rhr <- tibble(
+  date = extract_attr(rhr_lines, "startDate"),
+  resting_hr = as.numeric(extract_attr(rhr_lines, "value")),
+  unit = extract_attr(rhr_lines, "unit")
+)
+
+# Explore the extracted data
+head(rhr)
+glimpse(rhr)
+summary(rhr)
+
+# Date conversion
+rhr <- rhr %>%
+  mutate(date = as.Date(substr(date, 1, 10)))
+
+# Save the extracted data locally
+write_csv(rhr, file.path(dirname(file_path), "..",
+                         "resting_heart_rate.csv"))
+```
+
+# my work start here
+
+::: {.intro}
+## My Resting Heart Rate (2025–2026)
+For my PVJ I chose to explore my resting heart rate (rhr), by using data collected by my apple health. rhr is the number of times the heart beats per minute while the body is at rest. it can be influced at different factors. This project I will focus on the time in 2025 - 2026, especially as my daily routine shifts between academic semester, summer intern, and breaks. I hope to explore some noticeable patterns over time and how they might be impacted.
+:::
+
+```{r}
+# Load data
+rhr <- read_csv("pvj/resting_heart_rate.csv")
+
+# Filter data from 2025 to 2026
+rhr <- rhr |>
+  filter(date >= as.Date("2025-01-01"), date <= as.Date("2026-10-28"))
+
+# Explore the dataset
+glimpse(rhr)
+summary(rhr)
+nrow(rhr)
+```
+
+```{r}
+# Create by year and month
+rhr <- rhr |>
+  mutate(year = year(date), month = month(date))
+```
+
+```{r}
+# Summarize rhr by year first
+rhr_yearly <- rhr |>
+  group_by(year) |>
+   summarize(mean_rhr = mean(resting_hr))
+rhr_yearly
+```
+
+```{r}
+# viz: Resting Heart Rate Over Time
+ggplot(rhr, aes(x = date, y = resting_hr, color = year)) +
+  geom_point(alpha = 0.3, size = 2) +
+  geom_line(alpha = 0.3) +
+  labs(
+    title = "How has my resting heart rate (rhr) changed?",
+    subtitle = "rhs from 2025 to 2026",
+    x = "Date",
+    y = "rhr (bpm)",
+    caption = "export by Apple Health, January 2025 - October 2026"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# Macalester academic calendar
+academic_calendar <- read_csv("pvj/Macalester_Academic_25-26.csv")
+
+# the dataset
+glimpse(academic_calendar)
+head(academic_calendar)
+```
+

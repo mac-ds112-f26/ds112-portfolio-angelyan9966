@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>TidyTuesday: Urban Green Space – Angel Yan</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1982a526e8be06c243037506641069f3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a852f2dcc0f8ebb3a93c0bccea0b7a69.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1982a526e8be06c243037506641069f3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../style/custom.css">
+<link rel="stylesheet" href="../style/style_Portfolio_index.css">
+</head>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Angel Yan</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../more_about_me.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-compstat112-01" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">COMP/STAT112-01</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-compstat112-01">
+<li>
+    <a class="dropdown-item" href="../portfolio.html">
+ <span class="dropdown-text">Portfolio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pvj/pvj-01.html">
+ <span class="dropdown-text">Personal Viz Journey</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tt/tt-README.html">
+ <span class="dropdown-text">TidyTuesday</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pcl/pcl.html">
+ <span class="dropdown-text">Pre-Class Learnings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ica/ica-portfolio.html">
+ <span class="dropdown-text">In-Class Activities</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extra/extra-sample1.html">
+ <span class="dropdown-text">Extras</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../experience.html"> 
+<span class="menu-text">Experience</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">TidyTuesday: Urban Green Space</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>urban <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-09-22/urban.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="how-green-are-the-worlds-cities" class="level1 tt-hero"><h1>🌿 How Green Are the World’s Cities?</h1>
+<section id="exploring-urban-green-space-through-three-connected-visualizations" class="level3"><h3 class="anchored" data-anchor-id="exploring-urban-green-space-through-three-connected-visualizations">Exploring urban green space through three connected visualizations</h3>
+<p>For this TidyTuesday project, I explored how green space is distributed across cities, how it differs across world regions, and whether cities with more green area also provide more green space per person.</p>
+</section></section><section id="about-the-data" class="level2"><h2 class="anchored" data-anchor-id="about-the-data">About the Data</h2>
+<div class="tt-facts">
+<section id="source" class="level3 tt-fact tt-pink"><h3 class="anchored" data-anchor-id="source">🌎 Source</h3>
+<p>UN-Habitat<br>
+Urban Indicators Dataset</p>
+</section><section id="observations" class="level3 tt-fact tt-blue"><h3 class="anchored" data-anchor-id="observations">📍 Observations</h3>
+<p>Cities and urban areas<br>
+across different years</p>
+</section><section id="size" class="level3 tt-fact tt-green"><h3 class="anchored" data-anchor-id="size">📊 Size</h3>
+<p><strong>5,600 observations</strong><br><strong>10 variables</strong></p>
+</section>
+</div>
+<p>The dataset includes measurements such as the percentage of urban land covered by green area and the amount of green space available per person.</p>
+<hr></section><section id="viz" class="level1"><h1>01. Viz</h1>
+<section id="question" class="level3 tt-question"><h3 class="anchored" data-anchor-id="question">Question</h3>
+<p><strong>How is the percentage of green area distributed across cities around the world in 2025?</strong></p>
+</section><div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>urban_2025 <span class="ot">&lt;-</span> urban <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2025</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x=</span> averageShareOfGreenAreaInCityUrbanAreaPct))<span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Green Area Across Cities in 2025"</span>, </span>
+<span id="cb3-7"><a href="#cb3-7"></a>       <span class="at">x =</span> <span class="st">"Average share of green area (%)"</span>, </span>
+<span id="cb3-8"><a href="#cb3-8"></a>       <span class="at">y =</span> <span class="st">"Number of cities"</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>       )<span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="tt-README_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<section id="what-i-found" class="level3 tt-insight tt-green-border"><h3 class="anchored" data-anchor-id="what-i-found">💡 What I Found</h3>
+<p>Among cities with available data, many are concentrated around roughly <strong>3%–10% green area</strong>.</p>
+<p>The distribution is right-skewed, meaning cities with especially high percentages of green space are much less common.</p>
+</section>
+</div><div class="column" style="width:40%;">
+<div class="tt-mini">
+<section id="why-this-works" class="level3"><h3 class="anchored" data-anchor-id="why-this-works">Why this works</h3>
+<ul>
+<li>Makes the overall distribution easy to see</li>
+<li>Clearly shows where most cities are concentrated</li>
+</ul></section><section id="what-i-would-improve" class="level3"><h3 class="anchored" data-anchor-id="what-i-would-improve">What I would improve</h3>
+<ul>
+<li>Experiment with bin width</li>
+<li>Add a reference line or annotation</li>
+</ul></section>
+</div>
+</div>
+</div>
+<hr></section><section id="viz-1" class="level1"><h1>02. Viz</h1>
+<section id="question-1" class="level3 tt-question"><h3 class="anchored" data-anchor-id="question-1">Question</h3>
+<p><strong>Do cities in different world regions have different amounts of green area?</strong></p>
+</section><div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x =</span> averageShareOfGreenAreaInCityUrbanAreaPct, <span class="at">y =</span> sdgRegion)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Green Area Across World Regions"</span>, <span class="at">x =</span> <span class="st">"% of green area"</span>, <span class="at">y =</span> <span class="st">"region"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">theme</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="tt-README_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="what-i-found-1" class="level3 tt-insight tt-blue-border"><h3 class="anchored" data-anchor-id="what-i-found-1">💡 What I Found</h3>
+<p>Green-area percentages vary across world regions.</p>
+<p>Some regions show relatively higher values, while others tend to have lower percentages. There is also substantial variation <strong>within</strong> many regions, meaning cities in the same broad region can still look very different.</p>
+</section>
+</div><div class="column" style="width:40%;">
+<div class="tt-mini">
+<section id="why-this-works-1" class="level3"><h3 class="anchored" data-anchor-id="why-this-works-1">Why this works</h3>
+<ul>
+<li>Horizontal layout makes region labels easier to read</li>
+<li>Boxplots show both typical values and variation</li>
+</ul></section><section id="what-i-would-improve-1" class="level3"><h3 class="anchored" data-anchor-id="what-i-would-improve-1">What I would improve</h3>
+<ul>
+<li>Reorder regions for easier comparison</li>
+<li>Clean up long region labels</li>
+</ul></section>
+</div>
+</div>
+</div>
+<hr></section><section id="viz-2" class="level1"><h1>03. Viz</h1>
+<section id="question-2" class="level3 tt-question"><h3 class="anchored" data-anchor-id="question-2">Question</h3>
+<p><strong>Do cities with more green area also have more green space per person?</strong></p>
+</section><div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x =</span> averageShareOfGreenAreaInCityUrbanAreaPct, <span class="at">y =</span> greenAreaPerCapitaM2)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Does More Green Area Mean More Green Space per Person?"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>       <span class="at">x =</span> <span class="st">"% of Green Area"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>       <span class="at">y =</span> <span class="st">"Green area per capita"</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>       )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="tt-README_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:40%;">
+<section id="what-i-found-2" class="level3 tt-insight tt-purple-border"><h3 class="anchored" data-anchor-id="what-i-found-2">💡 What I Found</h3>
+<p>Cities with higher percentages of green area generally also tend to provide more green space per person.</p>
+<p>However, the relationship is not perfect. The scatterplot still contains substantial variation and several outliers.</p>
+</section>
+</div><div class="column" style="width:50%;">
+<div class="tt-mini">
+<section id="why-this-works-2" class="level3"><h3 class="anchored" data-anchor-id="why-this-works-2">Why this works</h3>
+<ul>
+<li>Directly compares two quantitative variables</li>
+<li>Transparency helps reduce overlapping points</li>
+</ul></section><section id="what-i-would-improve-2" class="level3"><h3 class="anchored" data-anchor-id="what-i-would-improve-2">What I would improve</h3>
+<ul>
+<li>Label interesting outliers</li>
+<li>Explore whether population size explains some variation</li>
+</ul></section>
+</div>
+</div>
+</div>
+<hr></section><section id="final-takeaway" class="level1 tt-takeaway"><h1>🌱 Final Takeaway</h1>
+<p>These three visualizations tell a connected story.</p>
+<p><strong>First</strong>, high percentages of urban green space are relatively uncommon.</p>
+<p><strong>Second</strong>, access to green space differs across world regions.</p>
+<p><strong>Finally</strong>, cities with more green area generally also offer more green space per person — but there are important exceptions.</p>
+<p>This project helped me move from a <strong>univariate distribution</strong> to <strong>regional comparison</strong> and finally to a <strong>relationship between two quantitative variables</strong>, while using visualization to build a connected data story.</p>
+</section>
+
+<!-- -->
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="an">title:</span><span class="co"> "TidyTuesday: Urban Green Space"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="an">page-layout:</span><span class="co"> full</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">---</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="in">```{r}</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># Load required libraries</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="in">```</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="in">```{r}</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>urban <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-09-22/urban.csv"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="in">```</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a></span>
+<span id="cb6-21"><a href="#cb6-21"></a>::: {.tt-hero}</span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="fu"># 🌿 How Green Are the World's Cities?</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="fu">### Exploring urban green space through three connected visualizations</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a>For this TidyTuesday project, I explored how green space is distributed</span>
+<span id="cb6-27"><a href="#cb6-27"></a>across cities, how it differs across world regions, and whether cities with</span>
+<span id="cb6-28"><a href="#cb6-28"></a>more green area also provide more green space per person.</span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a>:::</span>
+<span id="cb6-31"><a href="#cb6-31"></a></span>
+<span id="cb6-32"><a href="#cb6-32"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="in">```{r}</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#| echo: false</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#| message: false</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#| warning: false</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a></span>
+<span id="cb6-40"><a href="#cb6-40"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-41"><a href="#cb6-41"></a></span>
+<span id="cb6-42"><a href="#cb6-42"></a>urban <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb6-43"><a href="#cb6-43"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-09-22/urban.csv"</span></span>
+<span id="cb6-44"><a href="#cb6-44"></a>)</span>
+<span id="cb6-45"><a href="#cb6-45"></a></span>
+<span id="cb6-46"><a href="#cb6-46"></a>urban_2025 <span class="ot">&lt;-</span> urban <span class="sc">|&gt;</span></span>
+<span id="cb6-47"><a href="#cb6-47"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2025</span>)</span>
+<span id="cb6-48"><a href="#cb6-48"></a><span class="in">```</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a></span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a><span class="fu">## About the Data</span></span>
+<span id="cb6-52"><a href="#cb6-52"></a></span>
+<span id="cb6-53"><a href="#cb6-53"></a>:::: {.tt-facts}</span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a>::: {.tt-fact .tt-pink}</span>
+<span id="cb6-56"><a href="#cb6-56"></a></span>
+<span id="cb6-57"><a href="#cb6-57"></a><span class="fu">### 🌎 Source</span></span>
+<span id="cb6-58"><a href="#cb6-58"></a></span>
+<span id="cb6-59"><a href="#cb6-59"></a>UN-Habitat  </span>
+<span id="cb6-60"><a href="#cb6-60"></a>Urban Indicators Dataset</span>
+<span id="cb6-61"><a href="#cb6-61"></a></span>
+<span id="cb6-62"><a href="#cb6-62"></a>:::</span>
+<span id="cb6-63"><a href="#cb6-63"></a></span>
+<span id="cb6-64"><a href="#cb6-64"></a>::: {.tt-fact .tt-blue}</span>
+<span id="cb6-65"><a href="#cb6-65"></a></span>
+<span id="cb6-66"><a href="#cb6-66"></a><span class="fu">### 📍 Observations</span></span>
+<span id="cb6-67"><a href="#cb6-67"></a></span>
+<span id="cb6-68"><a href="#cb6-68"></a>Cities and urban areas  </span>
+<span id="cb6-69"><a href="#cb6-69"></a>across different years</span>
+<span id="cb6-70"><a href="#cb6-70"></a></span>
+<span id="cb6-71"><a href="#cb6-71"></a>:::</span>
+<span id="cb6-72"><a href="#cb6-72"></a></span>
+<span id="cb6-73"><a href="#cb6-73"></a>::: {.tt-fact .tt-green}</span>
+<span id="cb6-74"><a href="#cb6-74"></a></span>
+<span id="cb6-75"><a href="#cb6-75"></a><span class="fu">### 📊 Size</span></span>
+<span id="cb6-76"><a href="#cb6-76"></a></span>
+<span id="cb6-77"><a href="#cb6-77"></a>**5,600 observations**  </span>
+<span id="cb6-78"><a href="#cb6-78"></a>**10 variables**</span>
+<span id="cb6-79"><a href="#cb6-79"></a></span>
+<span id="cb6-80"><a href="#cb6-80"></a>:::</span>
+<span id="cb6-81"><a href="#cb6-81"></a></span>
+<span id="cb6-82"><a href="#cb6-82"></a>::::</span>
+<span id="cb6-83"><a href="#cb6-83"></a></span>
+<span id="cb6-84"><a href="#cb6-84"></a></span>
+<span id="cb6-85"><a href="#cb6-85"></a>The dataset includes measurements such as the percentage of urban land</span>
+<span id="cb6-86"><a href="#cb6-86"></a>covered by green area and the amount of green space available per person.</span>
+<span id="cb6-87"><a href="#cb6-87"></a></span>
+<span id="cb6-88"><a href="#cb6-88"></a></span>
+<span id="cb6-89"><a href="#cb6-89"></a>---</span>
+<span id="cb6-90"><a href="#cb6-90"></a></span>
+<span id="cb6-91"><a href="#cb6-91"></a><span class="fu"># 01. Viz</span></span>
+<span id="cb6-92"><a href="#cb6-92"></a></span>
+<span id="cb6-93"><a href="#cb6-93"></a>::: {.tt-question}</span>
+<span id="cb6-94"><a href="#cb6-94"></a></span>
+<span id="cb6-95"><a href="#cb6-95"></a><span class="fu">### Question</span></span>
+<span id="cb6-96"><a href="#cb6-96"></a></span>
+<span id="cb6-97"><a href="#cb6-97"></a>**How is the percentage of green area distributed across cities around the world in 2025?**</span>
+<span id="cb6-98"><a href="#cb6-98"></a></span>
+<span id="cb6-99"><a href="#cb6-99"></a>:::</span>
+<span id="cb6-100"><a href="#cb6-100"></a></span>
+<span id="cb6-101"><a href="#cb6-101"></a></span>
+<span id="cb6-104"><a href="#cb6-104"></a><span class="in">```{r}</span></span>
+<span id="cb6-105"><a href="#cb6-105"></a>urban_2025 <span class="ot">&lt;-</span> urban <span class="sc">|&gt;</span></span>
+<span id="cb6-106"><a href="#cb6-106"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2025</span>)</span>
+<span id="cb6-107"><a href="#cb6-107"></a></span>
+<span id="cb6-108"><a href="#cb6-108"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x=</span> averageShareOfGreenAreaInCityUrbanAreaPct))<span class="sc">+</span></span>
+<span id="cb6-109"><a href="#cb6-109"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"darkgreen"</span>, <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb6-110"><a href="#cb6-110"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Green Area Across Cities in 2025"</span>, </span>
+<span id="cb6-111"><a href="#cb6-111"></a>       <span class="at">x =</span> <span class="st">"Average share of green area (%)"</span>, </span>
+<span id="cb6-112"><a href="#cb6-112"></a>       <span class="at">y =</span> <span class="st">"Number of cities"</span></span>
+<span id="cb6-113"><a href="#cb6-113"></a>       )<span class="sc">+</span></span>
+<span id="cb6-114"><a href="#cb6-114"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb6-115"><a href="#cb6-115"></a><span class="in">```</span></span>
+<span id="cb6-116"><a href="#cb6-116"></a></span>
+<span id="cb6-117"><a href="#cb6-117"></a></span>
+<span id="cb6-118"><a href="#cb6-118"></a></span>
+<span id="cb6-119"><a href="#cb6-119"></a>:::: {.columns}</span>
+<span id="cb6-120"><a href="#cb6-120"></a></span>
+<span id="cb6-121"><a href="#cb6-121"></a>::: {.column width="45%"}</span>
+<span id="cb6-122"><a href="#cb6-122"></a></span>
+<span id="cb6-123"><a href="#cb6-123"></a>::: {.tt-insight .tt-green-border}</span>
+<span id="cb6-124"><a href="#cb6-124"></a></span>
+<span id="cb6-125"><a href="#cb6-125"></a><span class="fu">### 💡 What I Found</span></span>
+<span id="cb6-126"><a href="#cb6-126"></a></span>
+<span id="cb6-127"><a href="#cb6-127"></a>Among cities with available data, many are concentrated around roughly</span>
+<span id="cb6-128"><a href="#cb6-128"></a>**3%–10% green area**.</span>
+<span id="cb6-129"><a href="#cb6-129"></a></span>
+<span id="cb6-130"><a href="#cb6-130"></a>The distribution is right-skewed, meaning cities with especially high</span>
+<span id="cb6-131"><a href="#cb6-131"></a>percentages of green space are much less common.</span>
+<span id="cb6-132"><a href="#cb6-132"></a></span>
+<span id="cb6-133"><a href="#cb6-133"></a>:::</span>
+<span id="cb6-134"><a href="#cb6-134"></a></span>
+<span id="cb6-135"><a href="#cb6-135"></a>:::</span>
+<span id="cb6-136"><a href="#cb6-136"></a></span>
+<span id="cb6-137"><a href="#cb6-137"></a>::: {.column width="40%"}</span>
+<span id="cb6-138"><a href="#cb6-138"></a></span>
+<span id="cb6-139"><a href="#cb6-139"></a>::: {.tt-mini}</span>
+<span id="cb6-140"><a href="#cb6-140"></a></span>
+<span id="cb6-141"><a href="#cb6-141"></a><span class="fu">### Why this works</span></span>
+<span id="cb6-142"><a href="#cb6-142"></a></span>
+<span id="cb6-143"><a href="#cb6-143"></a><span class="ss">- </span>Makes the overall distribution easy to see</span>
+<span id="cb6-144"><a href="#cb6-144"></a><span class="ss">- </span>Clearly shows where most cities are concentrated</span>
+<span id="cb6-145"><a href="#cb6-145"></a></span>
+<span id="cb6-146"><a href="#cb6-146"></a><span class="fu">### What I would improve</span></span>
+<span id="cb6-147"><a href="#cb6-147"></a></span>
+<span id="cb6-148"><a href="#cb6-148"></a><span class="ss">- </span>Experiment with bin width</span>
+<span id="cb6-149"><a href="#cb6-149"></a><span class="ss">- </span>Add a reference line or annotation</span>
+<span id="cb6-150"><a href="#cb6-150"></a></span>
+<span id="cb6-151"><a href="#cb6-151"></a>:::</span>
+<span id="cb6-152"><a href="#cb6-152"></a></span>
+<span id="cb6-153"><a href="#cb6-153"></a>:::</span>
+<span id="cb6-154"><a href="#cb6-154"></a></span>
+<span id="cb6-155"><a href="#cb6-155"></a>::::</span>
+<span id="cb6-156"><a href="#cb6-156"></a></span>
+<span id="cb6-157"><a href="#cb6-157"></a></span>
+<span id="cb6-158"><a href="#cb6-158"></a>---</span>
+<span id="cb6-159"><a href="#cb6-159"></a></span>
+<span id="cb6-160"><a href="#cb6-160"></a><span class="fu"># 02. Viz</span></span>
+<span id="cb6-161"><a href="#cb6-161"></a></span>
+<span id="cb6-162"><a href="#cb6-162"></a>::: {.tt-question}</span>
+<span id="cb6-163"><a href="#cb6-163"></a></span>
+<span id="cb6-164"><a href="#cb6-164"></a><span class="fu">### Question</span></span>
+<span id="cb6-165"><a href="#cb6-165"></a></span>
+<span id="cb6-166"><a href="#cb6-166"></a>**Do cities in different world regions have different amounts of green area?**</span>
+<span id="cb6-167"><a href="#cb6-167"></a></span>
+<span id="cb6-168"><a href="#cb6-168"></a>:::</span>
+<span id="cb6-169"><a href="#cb6-169"></a></span>
+<span id="cb6-170"><a href="#cb6-170"></a></span>
+<span id="cb6-173"><a href="#cb6-173"></a><span class="in">```{r}</span></span>
+<span id="cb6-174"><a href="#cb6-174"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x =</span> averageShareOfGreenAreaInCityUrbanAreaPct, <span class="at">y =</span> sdgRegion)) <span class="sc">+</span></span>
+<span id="cb6-175"><a href="#cb6-175"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb6-176"><a href="#cb6-176"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Green Area Across World Regions"</span>, <span class="at">x =</span> <span class="st">"% of green area"</span>, <span class="at">y =</span> <span class="st">"region"</span>) <span class="sc">+</span></span>
+<span id="cb6-177"><a href="#cb6-177"></a>  <span class="fu">theme</span>()</span>
+<span id="cb6-178"><a href="#cb6-178"></a><span class="in">```</span></span>
+<span id="cb6-179"><a href="#cb6-179"></a></span>
+<span id="cb6-180"><a href="#cb6-180"></a></span>
+<span id="cb6-181"><a href="#cb6-181"></a>:::: {.columns}</span>
+<span id="cb6-182"><a href="#cb6-182"></a></span>
+<span id="cb6-183"><a href="#cb6-183"></a>::: {.column width="50%"}</span>
+<span id="cb6-184"><a href="#cb6-184"></a></span>
+<span id="cb6-185"><a href="#cb6-185"></a>::: {.tt-insight .tt-blue-border}</span>
+<span id="cb6-186"><a href="#cb6-186"></a></span>
+<span id="cb6-187"><a href="#cb6-187"></a><span class="fu">### 💡 What I Found</span></span>
+<span id="cb6-188"><a href="#cb6-188"></a></span>
+<span id="cb6-189"><a href="#cb6-189"></a>Green-area percentages vary across world regions.</span>
+<span id="cb6-190"><a href="#cb6-190"></a></span>
+<span id="cb6-191"><a href="#cb6-191"></a>Some regions show relatively higher values, while others tend to have</span>
+<span id="cb6-192"><a href="#cb6-192"></a>lower percentages. There is also substantial variation **within** many</span>
+<span id="cb6-193"><a href="#cb6-193"></a>regions, meaning cities in the same broad region can still look very different.</span>
+<span id="cb6-194"><a href="#cb6-194"></a></span>
+<span id="cb6-195"><a href="#cb6-195"></a>:::</span>
+<span id="cb6-196"><a href="#cb6-196"></a></span>
+<span id="cb6-197"><a href="#cb6-197"></a>:::</span>
+<span id="cb6-198"><a href="#cb6-198"></a></span>
+<span id="cb6-199"><a href="#cb6-199"></a>::: {.column width="40%"}</span>
+<span id="cb6-200"><a href="#cb6-200"></a></span>
+<span id="cb6-201"><a href="#cb6-201"></a>::: {.tt-mini}</span>
+<span id="cb6-202"><a href="#cb6-202"></a></span>
+<span id="cb6-203"><a href="#cb6-203"></a><span class="fu">### Why this works</span></span>
+<span id="cb6-204"><a href="#cb6-204"></a></span>
+<span id="cb6-205"><a href="#cb6-205"></a><span class="ss">- </span>Horizontal layout makes region labels easier to read</span>
+<span id="cb6-206"><a href="#cb6-206"></a><span class="ss">- </span>Boxplots show both typical values and variation</span>
+<span id="cb6-207"><a href="#cb6-207"></a></span>
+<span id="cb6-208"><a href="#cb6-208"></a><span class="fu">### What I would improve</span></span>
+<span id="cb6-209"><a href="#cb6-209"></a></span>
+<span id="cb6-210"><a href="#cb6-210"></a><span class="ss">- </span>Reorder regions for easier comparison</span>
+<span id="cb6-211"><a href="#cb6-211"></a><span class="ss">- </span>Clean up long region labels</span>
+<span id="cb6-212"><a href="#cb6-212"></a></span>
+<span id="cb6-213"><a href="#cb6-213"></a>:::</span>
+<span id="cb6-214"><a href="#cb6-214"></a></span>
+<span id="cb6-215"><a href="#cb6-215"></a>:::</span>
+<span id="cb6-216"><a href="#cb6-216"></a></span>
+<span id="cb6-217"><a href="#cb6-217"></a>::::</span>
+<span id="cb6-218"><a href="#cb6-218"></a></span>
+<span id="cb6-219"><a href="#cb6-219"></a></span>
+<span id="cb6-220"><a href="#cb6-220"></a>---</span>
+<span id="cb6-221"><a href="#cb6-221"></a></span>
+<span id="cb6-222"><a href="#cb6-222"></a><span class="fu"># 03. Viz</span></span>
+<span id="cb6-223"><a href="#cb6-223"></a></span>
+<span id="cb6-224"><a href="#cb6-224"></a>::: {.tt-question}</span>
+<span id="cb6-225"><a href="#cb6-225"></a></span>
+<span id="cb6-226"><a href="#cb6-226"></a><span class="fu">### Question</span></span>
+<span id="cb6-227"><a href="#cb6-227"></a></span>
+<span id="cb6-228"><a href="#cb6-228"></a>**Do cities with more green area also have more green space per person?**</span>
+<span id="cb6-229"><a href="#cb6-229"></a></span>
+<span id="cb6-230"><a href="#cb6-230"></a>:::</span>
+<span id="cb6-231"><a href="#cb6-231"></a></span>
+<span id="cb6-232"><a href="#cb6-232"></a></span>
+<span id="cb6-235"><a href="#cb6-235"></a><span class="in">```{r}</span></span>
+<span id="cb6-236"><a href="#cb6-236"></a><span class="fu">ggplot</span>(urban_2025, <span class="fu">aes</span>(<span class="at">x =</span> averageShareOfGreenAreaInCityUrbanAreaPct, <span class="at">y =</span> greenAreaPerCapitaM2)) <span class="sc">+</span></span>
+<span id="cb6-237"><a href="#cb6-237"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb6-238"><a href="#cb6-238"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Does More Green Area Mean More Green Space per Person?"</span>,</span>
+<span id="cb6-239"><a href="#cb6-239"></a>       <span class="at">x =</span> <span class="st">"% of Green Area"</span>,</span>
+<span id="cb6-240"><a href="#cb6-240"></a>       <span class="at">y =</span> <span class="st">"Green area per capita"</span></span>
+<span id="cb6-241"><a href="#cb6-241"></a>       )</span>
+<span id="cb6-242"><a href="#cb6-242"></a><span class="in">```</span></span>
+<span id="cb6-243"><a href="#cb6-243"></a></span>
+<span id="cb6-244"><a href="#cb6-244"></a></span>
+<span id="cb6-245"><a href="#cb6-245"></a>:::: {.columns}</span>
+<span id="cb6-246"><a href="#cb6-246"></a></span>
+<span id="cb6-247"><a href="#cb6-247"></a>::: {.column width="40%"}</span>
+<span id="cb6-248"><a href="#cb6-248"></a></span>
+<span id="cb6-249"><a href="#cb6-249"></a>::: {.tt-insight .tt-purple-border}</span>
+<span id="cb6-250"><a href="#cb6-250"></a></span>
+<span id="cb6-251"><a href="#cb6-251"></a><span class="fu">### 💡 What I Found</span></span>
+<span id="cb6-252"><a href="#cb6-252"></a></span>
+<span id="cb6-253"><a href="#cb6-253"></a>Cities with higher percentages of green area generally also tend to provide</span>
+<span id="cb6-254"><a href="#cb6-254"></a>more green space per person.</span>
+<span id="cb6-255"><a href="#cb6-255"></a></span>
+<span id="cb6-256"><a href="#cb6-256"></a>However, the relationship is not perfect. The scatterplot still contains</span>
+<span id="cb6-257"><a href="#cb6-257"></a>substantial variation and several outliers.</span>
+<span id="cb6-258"><a href="#cb6-258"></a></span>
+<span id="cb6-259"><a href="#cb6-259"></a>:::</span>
+<span id="cb6-260"><a href="#cb6-260"></a></span>
+<span id="cb6-261"><a href="#cb6-261"></a>:::</span>
+<span id="cb6-262"><a href="#cb6-262"></a></span>
+<span id="cb6-263"><a href="#cb6-263"></a>::: {.column width="50%"}</span>
+<span id="cb6-264"><a href="#cb6-264"></a></span>
+<span id="cb6-265"><a href="#cb6-265"></a>::: {.tt-mini}</span>
+<span id="cb6-266"><a href="#cb6-266"></a></span>
+<span id="cb6-267"><a href="#cb6-267"></a><span class="fu">### Why this works</span></span>
+<span id="cb6-268"><a href="#cb6-268"></a></span>
+<span id="cb6-269"><a href="#cb6-269"></a><span class="ss">- </span>Directly compares two quantitative variables</span>
+<span id="cb6-270"><a href="#cb6-270"></a><span class="ss">- </span>Transparency helps reduce overlapping points</span>
+<span id="cb6-271"><a href="#cb6-271"></a></span>
+<span id="cb6-272"><a href="#cb6-272"></a><span class="fu">### What I would improve</span></span>
+<span id="cb6-273"><a href="#cb6-273"></a></span>
+<span id="cb6-274"><a href="#cb6-274"></a><span class="ss">- </span>Label interesting outliers</span>
+<span id="cb6-275"><a href="#cb6-275"></a><span class="ss">- </span>Explore whether population size explains some variation</span>
+<span id="cb6-276"><a href="#cb6-276"></a></span>
+<span id="cb6-277"><a href="#cb6-277"></a>:::</span>
+<span id="cb6-278"><a href="#cb6-278"></a></span>
+<span id="cb6-279"><a href="#cb6-279"></a>:::</span>
+<span id="cb6-280"><a href="#cb6-280"></a></span>
+<span id="cb6-281"><a href="#cb6-281"></a>::::</span>
+<span id="cb6-282"><a href="#cb6-282"></a></span>
+<span id="cb6-283"><a href="#cb6-283"></a></span>
+<span id="cb6-284"><a href="#cb6-284"></a>---</span>
+<span id="cb6-285"><a href="#cb6-285"></a></span>
+<span id="cb6-286"><a href="#cb6-286"></a>::: {.tt-takeaway}</span>
+<span id="cb6-287"><a href="#cb6-287"></a></span>
+<span id="cb6-288"><a href="#cb6-288"></a><span class="fu"># 🌱 Final Takeaway</span></span>
+<span id="cb6-289"><a href="#cb6-289"></a></span>
+<span id="cb6-290"><a href="#cb6-290"></a>These three visualizations tell a connected story.</span>
+<span id="cb6-291"><a href="#cb6-291"></a></span>
+<span id="cb6-292"><a href="#cb6-292"></a>**First**, high percentages of urban green space are relatively uncommon.</span>
+<span id="cb6-293"><a href="#cb6-293"></a></span>
+<span id="cb6-294"><a href="#cb6-294"></a>**Second**, access to green space differs across world regions.</span>
+<span id="cb6-295"><a href="#cb6-295"></a></span>
+<span id="cb6-296"><a href="#cb6-296"></a>**Finally**, cities with more green area generally also offer more green</span>
+<span id="cb6-297"><a href="#cb6-297"></a>space per person — but there are important exceptions.</span>
+<span id="cb6-298"><a href="#cb6-298"></a></span>
+<span id="cb6-299"><a href="#cb6-299"></a>This project helped me move from a **univariate distribution** to</span>
+<span id="cb6-300"><a href="#cb6-300"></a>**regional comparison** and finally to a **relationship between two</span>
+<span id="cb6-301"><a href="#cb6-301"></a>quantitative variables**, while using visualization to build a connected</span>
+<span id="cb6-302"><a href="#cb6-302"></a>data story.</span>
+<span id="cb6-303"><a href="#cb6-303"></a></span>
+<span id="cb6-304"><a href="#cb6-304"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
