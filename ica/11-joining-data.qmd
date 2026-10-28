@@ -10,6 +10,7 @@ title: "Join"
 Define two new datasets, with different students and courses:
 
 ```{r}
+library(tidyverse)
 students_2 <- data.frame(
   student = c("D", "E", "F"),
   class = c("COMP 101", "BIOL 101", "POLI 101")
@@ -281,7 +282,7 @@ The median class size varies from student to student. To get a sense for the typ
 
 ```{r}
 ggplot(student_class_size, aes(x = med_class)) +
-  geom_histogram()
+  geom_histogram(color = "pink")
 ```
 
 
@@ -301,7 +302,7 @@ Below is a dataset with all courses in department E:
 
 ```{r}
 grades |>
-  semi_join(dept_E)
+  semi_join(courses, dept_E)
 ```
 
 What students enrolled in classes in department E? (We just want info on the students, not the classes.)
@@ -346,7 +347,10 @@ courses |>
 What's the grade-point average (GPA) for each student?
 
 ```{r}
-
+grades |>
+  left_join(gpa_conversion) |>
+  group_by(sid) |>
+  summarize(gpa = mean(gp, na.rm = TRUE))
 ```
 
 ### ✏️ Compute Median GPA
@@ -354,7 +358,11 @@ What's the grade-point average (GPA) for each student?
 What's the median GPA across all students?
 
 ```{r}
-
+grades |>
+  left_join(gpa_conversion) |>
+  group_by(sid) |>
+  summarize(gpa = mean(gp, na.rm = TRUE)) |>
+  summarize(median(gpa))
 ```
 
 ### ✏️ Find Grades Below B+
@@ -362,7 +370,10 @@ What's the median GPA across all students?
 What fraction of grades are below B+?
 
 ```{r}
-
+grades |>
+  left_join(gpa_conversion) |>
+  mutate(gpa_conversion < B+ = (gp < 3.3)) |>
+  summarize(mean(below_b_plus, na.rm = TRUE))
 ```
 
 ### ✏️ Compute Instructor GPA
@@ -370,7 +381,12 @@ What fraction of grades are below B+?
 What's the grade-point average for each instructor? Order from low to high.
 
 ```{r}
-
+grades |>
+  left_join(gpa_conversion) |>
+  left_join(courses) |>
+  group_by(iid) |>
+  summarize(gpa = mean(gp, na.rm = TRUE)) |>
+  arrange(gpa)
 ```
 
 ### ✏️ Estimate Dept GPA
