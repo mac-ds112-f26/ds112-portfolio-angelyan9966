@@ -3,7 +3,9 @@ title: "Personal Visualization Journey"
 ---
 Prepare and load the resting heart rate data for my PVJ. I exported the data from my phone, and it’s only available as an xml. file. Online tools cannot successfully convert xml. to csv.
 ```{r}
+library(ggplot2)
 library(tidyverse)
+library(dplyr)
 library(xml2)
 
 # Path to apple health xml
@@ -114,9 +116,9 @@ ggplot(rhr, aes(x = date, y = resting_hr, color = year)) +
   geom_point(alpha = 0.3, size = 2) +
   geom_line(alpha = 0.3) +
   labs(
-    title = "How has my resting heart rate (rhr) changed?",
+    title = "how has my resting heart rate (rhr) changed?",
     subtitle = "rhs from 2025 to 2026",
-    x = "Date",
+    x = "date",
     y = "rhr (bpm)",
     caption = "export by Apple Health, January 2025 - October 2026"
   ) +
@@ -131,4 +133,137 @@ academic_calendar <- read_csv("pvj/Macalester_Academic_25-26.csv")
 glimpse(academic_calendar)
 head(academic_calendar)
 ```
+```{r}
+# average rhr in month
+
+rhr_monthly <- rhr |>
+  group_by(month) |>
+  summarize(mean_rhr = mean(resting_hr))
+rhr_monthly
+```
+
+```{r}
+#viz: average rhr by month
+ggplot(rhr_monthly, aes(x = month, y = mean_rhr)) +
+  geom_line(color = "lightblue") +
+  geom_point(color = "orange", size = 2) +
+  labs(
+    title = "does my rhr change by month?",
+    subtitle = "monthly average rhr across 2025 and 2026",
+    x = "month",
+    y = "average rhr (bpm)",
+    caption = "source: export by Apple Health, January 2025 - October 2026"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# average rhr by year and month
+rhr_monthly_year <- rhr |>
+  group_by(year, month) |>
+  summarize(mean_rhr = mean(resting_hr))
+rhr_monthly_year
+```
+
+```{r}
+# viz: compare monthly rhr by year
+ggplot(rhr_monthly_year, aes(x = month, y = mean_rhr)) +
+  geom_line(color = "lightblue") +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "monthly rhr in 2025 and 2026",
+    subtitle = "comparing monthly average rhr in two years",
+    x = "month",
+    y = "average rhr (bpm)",
+    caption = "source: export by Apple Health, January 2025 - October 2026"
+  ) +
+  facet_wrap(~year) +
+  theme_minimal()
+```
+
+```{r}
+# convert dates in academic calendar
+academic_calendar <- academic_calendar |>
+  mutate(start = mdy(start), end = mdy(end))
+```
+
+```{r}
+# four academic semesters
+
+# Spring 2025
+spring_2025 <- rhr |>
+  filter(date >= as.Date("2025-01-23"),
+         date <= as.Date("2025-05-12")) |>
+  summarize(mean_rhr = mean(resting_hr))
+
+# Fall 2025
+fall_2025 <- rhr |>
+  filter(date >= as.Date("2025-09-02"),
+         date <= as.Date("2025-12-17")) |>
+  summarize(mean_rhr = mean(resting_hr))
+
+# Spring 2026
+spring_2026 <- rhr |>
+  filter(date >= as.Date("2026-01-22"),
+         date <= as.Date("2026-05-11")) |>
+  summarize(mean_rhr = mean(resting_hr))
+
+# Fall 2026
+fall_2026 <- rhr |>
+  filter(date >= as.Date("2026-09-08"),
+         date <= as.Date("2026-10-28")) |>
+  summarize(mean_rhr = mean(resting_hr))
+```
+
+```{r}
+# average mean for four semester
+spring_2025
+fall_2025
+spring_2026
+fall_2026
+```
+
+```{r}
+# filter academic semesters
+rhr_semester <- rhr |>
+  mutate(
+    spring_2025 = date >= as.Date("2025-01-23") & date <= as.Date("2025-05-12"),
+    fall_2025 = date >= as.Date("2025-09-02") & date <= as.Date("2025-12-17"),
+    spring_2026 = date >= as.Date("2026-01-22") & date <= as.Date("2026-05-11"),
+    fall_2026 = date >= as.Date("2026-09-08") & date <= as.Date("2026-10-28")
+  ) |>
+  pivot_longer(
+    cols = c(spring_2025, fall_2025, spring_2026, fall_2026),
+    names_to = "semester",
+    values_to = "included"
+  ) |>
+  filter(included == TRUE)
+
+# average rhr by year and academic period
+rhr_semester_avg <- rhr_semester |>
+  group_by(semester) |>
+  summarize(mean_rhr = mean(resting_hr))
+rhr_semester_avg                            
+```
+
+```{r}
+# viz: rhr across these four academic periods
+ggplot(rhr_semester_avg, aes(x = semester, y = mean_rhr, color = semester)) +
+  geom_point(size = 2) +
+  labs(
+    title = "my rhr across four academic semesters",
+    subtitle = "average rhr in spring and fall, 2025–2026",
+    x = "semester",
+    y = "average rhr (bpm)",
+    color = "semester",
+    caption = "source: Apple Health & Macalester Calendar"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note title = "observations"}
+My average rhr was lower in 2026 than in 2025 for both Spring and Fall. In both years, my rhr was also slightly higher in Spring than in Fall. The difference between the four groups was relatively small, but the pattern was at least consistent across the two years.
+
+my originally thought is wanted to see whether my heart rate changes with my academic schedule. However, these results do not necessarily mean that academic stress caused the differences, since RHR can also be affected by sleep, exercise, emotions, and other factors.
+:::
 

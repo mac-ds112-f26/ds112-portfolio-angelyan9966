@@ -14,7 +14,7 @@
     "href": "pvj/pvj-01.html",
     "title": "Personal Visualization Journey",
     "section": "",
-    "text": "Prepare and load the resting heart rate data for my PVJ. I exported the data from my phone, and it’s only available as an xml. file. Online tools cannot successfully convert xml. to csv.\nCodelibrary(tidyverse)\nlibrary(xml2)\n\n# Path to apple health xml\nfile_path &lt;- \"pvj/apple_health_export/export.xml\""
+    "text": "Prepare and load the resting heart rate data for my PVJ. I exported the data from my phone, and it’s only available as an xml. file. Online tools cannot successfully convert xml. to csv.\nCodelibrary(ggplot2)\nlibrary(tidyverse)\nlibrary(dplyr)\nlibrary(xml2)\n\n# Path to apple health xml\nfile_path &lt;- \"pvj/apple_health_export/export.xml\""
   },
   {
     "objectID": "tt/2025-07-08.html",
