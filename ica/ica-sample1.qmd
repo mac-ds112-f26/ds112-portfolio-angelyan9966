@@ -1,5 +1,7 @@
 ---
 title: "ICA Sample 1"
+author: "Angel Yan"
+date: "Sep 14. 2026"
 ---
 
 Add content here

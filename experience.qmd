@@ -1,0 +1,295 @@
+---
+title: "Experience"
+page-layout: full
+toc: false
+---
+
+<style>
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 25px 0 50px 0;
+}
+
+.experience-card {
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid #d9d2c3;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.pink-card {
+  background-color: #FFCCF3;
+  border-top: 6px solid #F2B9AA;
+}
+
+.blue-card {
+  background-color: #85E5FF;
+  border-top: 6px solid #8ec5e8;
+}
+
+.yellow-card {
+  background-color: #F0FF85;
+  border-top: 6px solid #e5c65b;
+}
+
+.green-card {
+  background-color: #BAFFBD;
+  border-top: 6px solid #86bf92;
+}
+
+.purple-card {
+  background-color: #EDA3FF;
+  border-top: 6px solid #aa8bd4;
+}
+
+.orange-card {
+  background-color: #F08541;
+  border-top: 6px solid #e7a06b;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 25px 0 50px 0;
+}
+
+.skill-card {
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #7CD995;
+}
+
+@media (max-width: 800px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+</style>
+
+
+::: {.my_experience}
+
+## My Experience
+
+My experiences span media production, communication, journalism, education,
+community engagement, and research. I have worked with visual storytelling,
+digital media, and cross-cultural communication.
+
+:::
+
+
+## Media and Communication
+
+:::: {.experience-grid}
+
+::: {.experience-card .pink-card}
+
+### Saint Paul Neighborhood Network
+
+**Communication Intern**  
+*Saint Paul, Minnesota | Jun 2026 – Dec 2026*
+
+Created digital promotional materials including posters, web banners,
+social media graphics, and multimedia content for nonprofit campaigns
+and community events.
+
+Worked with staff and community partners to develop inclusive
+communication materials and strengthen community engagement.
+
+Also supported video production, photography, visual storytelling,
+and live event production.
+
+:::
+
+
+::: {.experience-card .blue-card}
+
+### Xinhua News Agency
+
+**News Production Intern**  
+*Guangzhou, China | Jun 2026 – Aug 2026*
+
+Developed interview outlines, production plans, and shooting scripts
+for news coverage.
+
+Edited news videos for digital platforms and created multimedia content
+introducing Chinese society, culture, and current affairs to international
+audiences.
+
+:::
+
+
+::: {.experience-card .yellow-card}
+
+### Yew Chung Education Foundation
+
+**Content Creator**  
+*Hong Kong, China | Jul 2026 – Jan 2027*
+
+Developed creative ideas for video and social media content focused on
+student life, academic programs, and organizational storytelling.
+
+Collaborated with the alumni team on alumni spotlights, videos,
+social media stories, events, and newsletters.
+
+:::
+
+
+::: {.experience-card .green-card}
+
+### Yew Chung Education Management
+
+**Marketing Intern**  
+*Shanghai, China | May 2025 – Jul 2025*
+
+Supported school events, marketing projects, and external partnerships.
+
+Contributed ideas for improving publicity and student resource use,
+and conducted research on the international education market.
+
+:::
+
+::::
+
+
+## Education & Community Engagement
+
+:::: {.experience-grid}
+
+::: {.experience-card .purple-card}
+
+### International Student Program
+
+**Mentor Dean / Mentor**  
+*Macalester College | 2025 – 2026*
+
+Mentored incoming international students as they adjusted to college life
+and the U.S. cultural environment.
+
+Later served as a Mentor Dean, helping train new mentors, organize meetings,
+and support the mentor team.
+
+:::
+
+
+::: {.experience-card .orange-card}
+
+### Film Analysis / Visual Culture
+
+**Preceptor / Teaching Assistant**  
+*Macalester College | Jan 2026 – May 2026*
+
+Supported class discussions, film screenings, office hours, and study sessions.
+
+Helped students analyze visual media and film scenes and provided feedback
+on weekly coursework.
+
+:::
+
+::::
+
+
+## Research Experience
+
+:::: {.experience-grid}
+
+::: {.experience-card .blue-card}
+
+### Stigma and Well-Being: An Interdisciplinary Perspective
+
+**Researcher**  
+*University College London | May 2023 – Jul 2023*
+
+Worked with qualitative and quantitative research methods while studying
+stigma, minority representation, and social perception.
+
+Contributed to an interdisciplinary white paper and presented research
+during group meetings.
+
+Published a supervised research paper examining campus anti-bullying
+and LGBTQ+ communities.
+
+:::
+
+
+::: {.experience-card .green-card}
+
+### China Pacific Insurance Group
+
+**Marketing Intern**  
+*Aug 2023 – Sep 2023*
+
+Conducted industry research using both qualitative and quantitative methods.
+
+Worked with survey distribution, industry reports, and group analysis
+to support marketing research and decision-making.
+
+:::
+
+::::
+
+
+## Skills
+
+:::: {.skills-grid}
+
+::: {.skill-card .pink-card}
+
+### 🎥 Media & Design
+
+- Adobe Premiere Pro
+- Adobe Photoshop
+- Adobe Lightroom
+- Adobe Audition
+- Canva
+- Photography
+- Video production
+
+:::
+
+
+::: {.skill-card .blue-card}
+
+### 📊 Data & Technology
+
+- Excel
+- Google Drive
+- Google Earth Pro
+- Squarespace
+- RStudio
+- GitHub
+
+:::
+
+
+::: {.skill-card .green-card}
+
+### 🌎 Languages
+
+- Mandarin
+- English
+- Cantonese
+
+:::
+
+
+::: {.skill-card .yellow-card}
+
+### 🤝 Other Training
+
+- Adult First Aid / CPR
+- QPR Suicide Prevention Gatekeeper
+- Minnesota State Driver's License
+
+:::
+
+::::
