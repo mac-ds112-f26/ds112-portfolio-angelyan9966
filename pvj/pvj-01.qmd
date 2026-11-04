@@ -261,7 +261,7 @@ ggplot(rhr_semester_avg, aes(x = semester, y = mean_rhr, color = semester)) +
   theme_minimal()
 ```
 
-::: {.callout-note title = "observations"}
+::: {.callout-note title = observations}
 My average rhr was lower in 2026 than in 2025 for both Spring and Fall. In both years, my rhr was also slightly higher in Spring than in Fall. The difference between the four groups was relatively small, but the pattern was at least consistent across the two years.
 
 my originally thought is wanted to see whether my heart rate changes with my academic schedule. However, these results do not necessarily mean that academic stress caused the differences, since RHR can also be affected by sleep, exercise, emotions, and other factors.
